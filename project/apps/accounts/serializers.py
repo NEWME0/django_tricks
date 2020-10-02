@@ -1,5 +1,8 @@
 from ..abstract.serializers import *
-from .models import Scope, Role
+from .models import *
+
+
+__all__ = ['ScopeSerializer', 'RoleSerializer']
 
 
 class ScopeSerializer(DynamicFieldsModelSerializer):
@@ -16,4 +19,22 @@ class RoleSerializer(DynamicFieldsModelSerializer):
 
     class Meta:
         model = Role
+        fields = '__all__'
+
+
+class ServiceSerializer(DynamicFieldsModelSerializer):
+    class Meta:
+        model = Service
+        fields = '__all__'
+
+
+class AccountSerializer(DynamicFieldsModelSerializer):
+    def to_representation(self, instance):
+        result = super().to_representation(instance)
+        result['service'] = ServiceSerializer().to_representation(instance.service)
+        result['roles'] = RoleSerializer(many=True).to_representation(instance.roles)
+        return result
+
+    class Meta:
+        model = Account
         fields = '__all__'

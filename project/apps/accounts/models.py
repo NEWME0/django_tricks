@@ -22,3 +22,12 @@ class Role(CreatedUpdatedAt, Model):
 
     class Meta:
         db_table = 'roles'
+
+
+class Service(CreatedUpdatedAt, Model):
+    title = CharField(max_length=127)
+
+
+class Account(CreatedUpdatedAt, Model):
+    service = ForeignKey(Service, on_delete=CASCADE)
+    roles = ManyToManyField(Role)

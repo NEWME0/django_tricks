@@ -1,2 +1,3 @@
-# Django and rest_framework tricks
+# Django and rest framework tricks
 
+## DynamicFieldsModelSerializer

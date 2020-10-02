@@ -1,7 +1,7 @@
-from rest_framework.generics import ListCreateAPIView
+from rest_framework.generics import *
 
-from .models import Scope, Role
-from .serializers import ScopeSerializer, RoleSerializer
+from .models import *
+from .serializers import *
 
 
 class ScopeListCreateView(ListCreateAPIView):
@@ -9,6 +9,16 @@ class ScopeListCreateView(ListCreateAPIView):
     queryset = Scope.objects.all()
 
 
+class ScopeRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
+    serializer_class = ScopeSerializer
+    queryset = Scope.objects.all()
+
+
 class RoleListCreateView(ListCreateAPIView):
+    serializer_class = RoleSerializer
+    queryset = Role.objects.all()
+
+
+class RoleRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
     serializer_class = RoleSerializer
     queryset = Role.objects.all()
